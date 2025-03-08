@@ -31,6 +31,30 @@ class Tree {
 
     return createBST(sortedArr);
   }
+
+  insert(value) {
+    let node = this.root;
+    let foundEnd = false;
+    while (!foundEnd) {
+      if (value < node.value) {
+        if (node.left === null) {
+          foundEnd = true;
+          let newNode = new Node(value);
+          node.left = newNode;
+        } else {
+          node = node.left;
+        }
+      } else {
+        if (node.right === null) {
+          foundEnd = true;
+          let newNode = new Node(value);
+          node.right = newNode;
+        } else {
+          node = node.right;
+        }
+      }
+    }
+  }
 }
 
 function merge(arr1, arr2) {
@@ -85,5 +109,6 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let bst = new Tree(arr);
-
+bst.insert(6);
+bst.insert(2);
 prettyPrint(bst.root);
