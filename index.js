@@ -296,15 +296,15 @@ function printCallback(node) {
   console.log(node.value);
 }
 
-let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-let bst = new Tree(arr);
+// let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+// let bst = new Tree(arr);
 // bst.insert(6);
 // bst.insert(2);
-bst.deleteItem(1);
-bst.deleteItem(3);
-bst.deleteItem(5);
-bst.deleteItem(7);
-prettyPrint(bst.root);
+// bst.deleteItem(1);
+// bst.deleteItem(3);
+// bst.deleteItem(5);
+// bst.deleteItem(7);
+// prettyPrint(bst.root);
 // console.log(bst.find(4));
 
 // bst.levelOrder(printCallback);
@@ -312,6 +312,45 @@ prettyPrint(bst.root);
 
 // console.log(bst.isBalanced());
 
-bst.rebalance();
+// bst.rebalance();
 
+// prettyPrint(bst.root);
+
+// let array = [];
+// for (let i = 0; i < 20; i++) {
+//   array.push(Math.floor(Math.random() * 101));
+// }
+
+let array = [58, 27, 61, 86, 94, 72, 0, 18, 44, 31];
+
+console.log(array);
+
+let bst = new Tree(array);
 prettyPrint(bst.root);
+console.log(`balanced: ${bst.isBalanced()}`);
+console.log('level:');
+bst.levelOrder(printCallback);
+console.log('pre:');
+bst.preOrder(printCallback);
+console.log('post:');
+bst.postOrder(printCallback);
+console.log('in:');
+bst.inOrder(printCallback);
+
+bst.insert(101);
+bst.insert(275);
+bst.insert(349);
+prettyPrint(bst.root);
+console.log(`balanced: ${bst.isBalanced()}`);
+
+bst.rebalance();
+prettyPrint(bst.root);
+console.log(`balanced: ${bst.isBalanced()}`);
+console.log('level:');
+bst.levelOrder(printCallback);
+console.log('pre:');
+bst.preOrder(printCallback);
+console.log('post:');
+bst.postOrder(printCallback);
+console.log('in:');
+bst.inOrder(printCallback);
