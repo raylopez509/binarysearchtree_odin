@@ -55,6 +55,22 @@ class Tree {
       }
     }
   }
+
+  deleteItem(value) {}
+
+  find(value) {
+    let node = this.root;
+    while (node !== null) {
+      if (value === node.value) {
+        return node;
+      } else if (value < node.value) {
+        node = node.left;
+      } else {
+        node = node.right;
+      }
+    }
+    return null;
+  }
 }
 
 function merge(arr1, arr2) {
@@ -112,3 +128,4 @@ let bst = new Tree(arr);
 bst.insert(6);
 bst.insert(2);
 prettyPrint(bst.root);
+console.log(bst.find(4));
