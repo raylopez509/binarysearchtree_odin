@@ -115,6 +115,22 @@ class Tree {
     }
     return null;
   }
+
+  levelOrder(callback) {
+    if (this.root === null) return;
+    let queue = [];
+    queue.push(this.root);
+    while (queue.length != 0) {
+      let currentNode = queue.shift();
+      callback(currentNode);
+      if (currentNode.left != null) {
+        queue.push(currentNode.left);
+      }
+      if (currentNode.right != null) {
+        queue.push(currentNode.right);
+      }
+    }
+  }
 }
 
 function merge(arr1, arr2) {
@@ -167,10 +183,16 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
+function printCallback(node) {
+  console.log(node.value);
+}
+
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let bst = new Tree(arr);
 // bst.insert(6);
 // bst.insert(2);
-bst.deleteItem(4);
-prettyPrint(bst.root);
+// bst.deleteItem(4);
+// prettyPrint(bst.root);
 // console.log(bst.find(4));
+
+bst.levelOrder(printCallback);
