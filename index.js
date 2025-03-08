@@ -56,7 +56,51 @@ class Tree {
     }
   }
 
-  deleteItem(value) {}
+  deleteItem(value) {
+    let parentNode = null;
+    let node = this.root;
+    let foundNode = false;
+    while (!foundNode) {
+      if (value < node.value) {
+        parentNode = node;
+        node = node.left;
+      } else if (value > node.value) {
+        parentNode = node;
+        node = node.right;
+      } else {
+        foundNode = true;
+        if (node.left == null && node.right == null) {
+          if (value < parentNode.value) {
+            parentNode.left = null;
+          } else {
+            parentNode.right = null;
+          }
+        } else if (node.left == null || node.right == null) {
+          if (node.left == null) {
+            if (value < parentNode.value) {
+              parentNode.left = node.right;
+            } else {
+              parentNode.right = node.right;
+            }
+          } else {
+            if (value < parentNode.value) {
+              parentNode.left = node.left;
+            } else {
+              parentNode.right = node.left;
+            }
+          }
+        } else {
+          let successor = node.right;
+          while (successor.left != null) {
+            successor = successor.left;
+          }
+          let successorValue = successor.value;
+          this.deleteItem(successorValue);
+          node.value = successorValue;
+        }
+      }
+    }
+  }
 
   find(value) {
     let node = this.root;
@@ -125,7 +169,8 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let bst = new Tree(arr);
-bst.insert(6);
-bst.insert(2);
+// bst.insert(6);
+// bst.insert(2);
+bst.deleteItem(4);
 prettyPrint(bst.root);
-console.log(bst.find(4));
+// console.log(bst.find(4));
