@@ -216,6 +216,30 @@ class Tree {
     }
     return null;
   }
+
+  isBalanced() {
+    let node = this.root;
+    let leftHeight = this.height(node.left);
+    let rightHeight = this.height(node.right);
+    let difference = leftHeight - rightHeight;
+    if (difference > 1 || difference < -1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  rebalance() {
+    let array = [];
+
+    function pushNode(node) {
+      array.push(node.value);
+    }
+
+    this.inOrder(pushNode);
+
+    this.root = this.buildTree(array);
+  }
 }
 
 function merge(arr1, arr2) {
@@ -276,11 +300,18 @@ let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let bst = new Tree(arr);
 // bst.insert(6);
 // bst.insert(2);
-// bst.deleteItem(4);
-// prettyPrint(bst.root);
+bst.deleteItem(1);
+bst.deleteItem(3);
+bst.deleteItem(5);
+bst.deleteItem(7);
+prettyPrint(bst.root);
 // console.log(bst.find(4));
 
 // bst.levelOrder(printCallback);
-// bst.postOrder(printCallback);
+// bst.inOrder(printCallback);
 
-console.log(bst.depth(bst.find(1)));
+// console.log(bst.isBalanced());
+
+bst.rebalance();
+
+prettyPrint(bst.root);
