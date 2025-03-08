@@ -117,7 +117,12 @@ class Tree {
   }
 
   levelOrder(callback) {
-    if (this.root === null) return;
+    if (typeof callback !== 'function') {
+      throw new Error('A callback function is required');
+    }
+    if (this.root === null) {
+      return;
+    }
     let queue = [];
     queue.push(this.root);
     while (queue.length != 0) {
@@ -130,6 +135,86 @@ class Tree {
         queue.push(currentNode.right);
       }
     }
+  }
+
+  inOrder(callback) {
+    function inOrderRecursion(node, callback) {
+      if (node.left != null) {
+        inOrderRecursion(node.left, callback);
+      }
+      callback(node);
+      if (node.right != null) {
+        inOrderRecursion(node.right, callback);
+      }
+    }
+
+    if (typeof callback !== 'function') {
+      throw new Error('A callback function is required');
+    }
+
+    inOrderRecursion(this.root, callback);
+  }
+
+  preOrder(callback) {
+    function inOrderRecursion(node, callback) {
+      callback(node);
+      if (node.left != null) {
+        inOrderRecursion(node.left, callback);
+      }
+      if (node.right != null) {
+        inOrderRecursion(node.right, callback);
+      }
+    }
+
+    if (typeof callback !== 'function') {
+      throw new Error('A callback function is required');
+    }
+
+    inOrderRecursion(this.root, callback);
+  }
+
+  postOrder(callback) {
+    function inOrderRecursion(node, callback) {
+      if (node.left != null) {
+        inOrderRecursion(node.left, callback);
+      }
+      if (node.right != null) {
+        inOrderRecursion(node.right, callback);
+      }
+      callback(node);
+    }
+
+    if (typeof callback !== 'function') {
+      throw new Error('A callback function is required');
+    }
+
+    inOrderRecursion(this.root, callback);
+  }
+
+  height(node) {
+    if (node === null) {
+      return -1;
+    }
+    let leftHeight = this.height(node.left);
+    let rightHeight = this.height(node.right);
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  depth(node) {
+    let depth = 0;
+    let currentNode = this.root;
+    while (currentNode !== null) {
+      if (node.value === currentNode.value) {
+        return depth;
+      } else if (node.value < currentNode.value) {
+        depth++;
+        currentNode = currentNode.left;
+      } else {
+        depth++;
+        currentNode = currentNode.right;
+      }
+    }
+    return null;
   }
 }
 
@@ -195,4 +280,7 @@ let bst = new Tree(arr);
 // prettyPrint(bst.root);
 // console.log(bst.find(4));
 
-bst.levelOrder(printCallback);
+// bst.levelOrder(printCallback);
+// bst.postOrder(printCallback);
+
+console.log(bst.depth(bst.find(1)));
